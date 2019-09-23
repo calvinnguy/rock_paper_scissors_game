@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <Title>Rock, Paper, Scissors Game</Title>
+  </head>
+  <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <script>
+      // Function returns a random move: (rock, paper or scissors)
+      function computerPlay() {
+        let random = Math.floor(Math.random() * 3);
+        switch(random) {
+          case 0: return "rock";
+            break;
+          case 1: return "paper";
+            break;
+          case 2: return "scissors";
+            break;
+        }
+      }
+
+      // Function determines winner against computer a single time
+      function singleRound(playerChoice, computerChoice) {
+        if(playerChoice == "rock" && computerChoice == "rock") {
+          return "Tie!"
+        }
+        if(playerChoice == "rock" && computerChoice == "paper") {
+          return "Computer wins!"
+        }
+        if(playerChoice == "rock" && computerChoice == "scissors") {
+          return "You win!"
+        }
+        if(playerChoice == "paper" && computerChoice == "paper") {
+          return "Tie!"
+        }
+        if(playerChoice == "paper" && computerChoice == "scissors") {
+          return "Computer wins!"
+        }
+        if(playerChoice == "paper" && computerChoice == "rock") {
+          return "You win!"
+        }
+        if(playerChoice == "scissors" && computerChoice == "scissors") {
+          return "Tie!"
+        }
+        if(playerChoice == "scissors" && computerChoice == "rock") {
+          return "Computer wins!"
+        }
+        if(playerChoice == "scissors" && computerChoice == "paper") {
+          return "You win!"
+        }
+      }
+
+      // Gets move selection from the player
+      function getInput() {
+        let msg = "Pick rock, paper or scissors.";
+        let playerSelection = prompt(msg).toLowerCase();
+        
+        // Ensures player entered a valid input
+        while(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
+          alert("Invalid input. Please select rock, paper, or scissors");
+          playerSelection = prompt(msg).toLowerCase();
+        } 
+        return playerSelection;
+      }
+
+      // Plays a 5 round game
+      function game() {
+        let playerScore = 0;
+        let computerScore = 0;
+        for(i = 0; i < 5; i++) {
+          let playerSelection = getInput();
+          let computerSelection = computerPlay();
+          let result = singleRound(playerSelection, computerSelection);
+
+          // Tracks score
+          if(result == "You win!") {
+            playerScore++;
+          } else if(result == "Computer wins!") {
+            computerScore++;
+          }
+
+          // Announces result of game and shows which round the game is in.
+          alert(result);
+        }
+
+        // Announces final score and winner.
+        alert(`Final score is: Player(${playerScore}) Computer(${computerScore}).`);
+        if(playerScore > computerScore) {
+          alert("Congratulations, you win!");
+        } else if(playerScore < computerScore) {
+          alert("Sorry, the computer wins!");
+        } else {
+          alert("Wow, there was a tie!");
+        }
+      }
+
+      // Adding button functionality
+      const rockBtn = document.querySelector('#rock');
+      rockBtn.addEventListener('click', () => {
+        let computerSelection = computerPlay();
+        let result = singleRound("rock", computerSelection);
+        alert(`Computer chose ${computerSelection}.`);
+        alert(result);
+      });
+
+      const paperBtn = document.querySelector('#paper');
+      paperBtn.addEventListener('click', () => {
+        let computerSelection = computerPlay();
+        let result = singleRound("paper", computerSelection);
+        alert(`Computer chose ${computerSelection}.`);
+        alert(result);
+      });
+
+      const scissorsBtn = document.querySelector('#scissors');
+      scissorsBtn.addEventListener('click', () => {
+        let computerSelection = computerPlay();
+        let result = singleRound("scissors", computerSelection);
+        alert(`Computer chose ${computerSelection}.`);
+        alert(result);
+      });
+
+      // Starts the game
+      alert("Play rock, paper, scissors against a computer.");
+      //game();
+      //alert("Refresh the page to play again!")
+    </script>
+  </body>
+</html> 
